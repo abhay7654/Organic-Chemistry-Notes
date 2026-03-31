@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive handwritten-style Organic Chemistry book for JEE preparation.">
+    <title>Organic Chemistry JEE Book — Handwritten Edition</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+        svg: { fontCache: 'global' },
+        startup: { elements: ['#book-content'] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="light">
+    <div class="bg-texture"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <div class="app-layout">
+        <!-- Sidebar Toggle Mobile -->
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Navigation">
+            <i class="ph ph-list"></i>
+        </button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Organic Chemistry</div>
+                <div class="sidebar-sub">JEE Mains Complete Guide</div>
+            </div>
+            
+            <div class="sidebar-progress">
+                <span>Progress:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" id="sidebarNav">
+                <!-- Navigation inserted by JS -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+                <i class="ph ph-moon"></i>
+            </button>
+
+            <!-- Hero (Only on Home) -->
+            <header class="hero" id="heroHeader">
+                <h1 class="title">
+                    Organic Chemistry <span class="highlight-text">The Complete Book</span>
+                </h1>
+                <p class="subtitle">~ handwritten notes for JEE Mains ~</p>
+                <div class="scribble-divider">~ ~ ~ ~</div>
+            </header>
+
+            <!-- Content Area dynamically populated -->
+            <div id="book-content"></div>
+
+            <footer class="footer">
+                <span class="pen-icon">✍️</span> the ultimate JEE prep companion
+            </footer>
+        </main>
+        
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
+            <i class="ph ph-arrow-up"></i>
+        </button>
+    </div>
+
+    <script src="content.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

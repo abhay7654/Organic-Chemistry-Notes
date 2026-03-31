@@ -1,0 +1,937 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+    --bg: #fdf6ec;
+    --paper: #fffef9;
+    --paper-shadow: rgba(139, 109, 63, 0.08);
+    --text: #2c2416;
+    --text-muted: #6b5c47;
+    --ink: #1a1208;
+    --accent: #c0392b;
+    --accent-soft: rgba(192, 57, 43, 0.12);
+    --blue-ink: #2755a0;
+    --blue-soft: rgba(39, 85, 160, 0.10);
+    --green-ink: #1d7a47;
+    --green-soft: rgba(29, 122, 71, 0.10);
+    --orange-ink: #d4770b;
+    --orange-soft: rgba(212, 119, 11, 0.10);
+    --purple-ink: #7b3fa0;
+    --purple-soft: rgba(123, 63, 160, 0.10);
+    --ruled-line: rgba(100, 149, 237, 0.18);
+    --margin-line: rgba(220, 80, 80, 0.25);
+    --card-bg: rgba(255, 254, 249, 0.92);
+    --card-border: rgba(180, 160, 120, 0.25);
+    --highlight-bg: rgba(255, 255, 100, 0.30);
+    --sidebar-bg: #faf3e4;
+    --sidebar-hover: rgba(192, 57, 43, 0.08);
+    --sidebar-active: rgba(192, 57, 43, 0.15);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+    --radius: 4px;
+    --tape-color: rgba(255, 245, 200, 0.75);
+    --tape-border: rgba(200, 190, 140, 0.4);
+}
+
+.dark {
+    --bg: #1a1612;
+    --paper: #242018;
+    --paper-shadow: rgba(0, 0, 0, 0.3);
+    --text: #e8dcc8;
+    --text-muted: #a89a7e;
+    --ink: #f0e6d0;
+    --accent: #e74c3c;
+    --accent-soft: rgba(231, 76, 60, 0.15);
+    --blue-ink: #5b9bd5;
+    --blue-soft: rgba(91, 155, 213, 0.12);
+    --green-ink: #4ec77b;
+    --green-soft: rgba(78, 199, 123, 0.12);
+    --orange-ink: #f0a83c;
+    --orange-soft: rgba(240, 168, 60, 0.12);
+    --purple-ink: #b07cd8;
+    --purple-soft: rgba(176, 124, 216, 0.12);
+    --ruled-line: rgba(100, 149, 237, 0.08);
+    --margin-line: rgba(220, 80, 80, 0.12);
+    --card-bg: rgba(36, 32, 24, 0.95);
+    --card-border: rgba(120, 100, 60, 0.2);
+    --highlight-bg: rgba(255, 255, 100, 0.08);
+    --sidebar-bg: #1e1a14;
+    --sidebar-hover: rgba(231, 76, 60, 0.1);
+    --sidebar-active: rgba(231, 76, 60, 0.2);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+    --tape-color: rgba(60, 55, 40, 0.75);
+    --tape-border: rgba(80, 70, 50, 0.5);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== BASE ===== */
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Kalam', cursive;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* ===== LAYOUT: SIDEBAR + MAIN ===== */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 270px;
+    background: var(--sidebar-bg);
+    border-right: 2px solid var(--card-border);
+    overflow-y: auto;
+    z-index: 50;
+    padding: 20px 0;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-soft) transparent;
+}
+
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 3px; }
+
+.sidebar-header {
+    padding: 10px 20px 16px;
+    border-bottom: 2px dashed var(--card-border);
+    margin-bottom: 10px;
+}
+
+.sidebar-title {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.sidebar-sub {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.sidebar-progress {
+    margin: 10px 20px;
+    padding: 8px 12px;
+    background: var(--accent-soft);
+    border-radius: 4px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-progress .progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--card-border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.sidebar-progress .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* Nav chapters */
+.sidebar-nav { padding: 0 10px; }
+
+.nav-chapter {
+    margin-bottom: 4px;
+}
+
+.nav-chapter-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+}
+
+.nav-chapter-title:hover {
+    background: var(--sidebar-hover);
+    transform: translateX(3px);
+}
+
+.nav-chapter-title.active {
+    background: var(--sidebar-active);
+    color: var(--accent);
+    font-weight: 700;
+    border-left: 3px solid var(--accent);
+}
+
+.nav-chapter-title .ch-num {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+    min-width: 22px;
+}
+
+/* Sub-sections inside nav */
+.nav-subs {
+    padding-left: 32px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.nav-chapter.expanded .nav-subs {
+    max-height: 500px;
+}
+
+.nav-sub-link {
+    display: block;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+    font-family: 'Kalam', cursive;
+}
+
+.nav-sub-link:hover {
+    color: var(--accent);
+    background: var(--sidebar-hover);
+}
+
+/* Mobile hamburger */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--card-border);
+    color: var(--text);
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 60;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+    margin-left: 270px;
+    flex: 1;
+    min-width: 0;
+    transition: margin-left 0.35s ease;
+}
+
+/* ===== BACKGROUND TEXTURE ===== */
+.bg-texture {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -2;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(218, 195, 150, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(192, 170, 130, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+.dark .bg-texture {
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(60, 50, 30, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(50, 40, 25, 0.2) 0%, transparent 50%);
+}
+
+/* ===== SCROLL PROGRESS BAR ===== */
+.scroll-progress {
+    position: fixed;
+    top: 0; left: 270px; right: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 200;
+    transition: width 0.1s ease;
+    border-radius: 0 2px 2px 0;
+    width: 0%;
+}
+
+/* ===== THEME TOGGLE ===== */
+.theme-toggle {
+    position: fixed;
+    top: 14px; right: 16px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--card-border);
+    color: var(--text);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 100;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+.theme-toggle:hover {
+    transform: rotate(20deg) scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 50px 20px 20px;
+    position: relative;
+}
+
+.title {
+    font-family: 'Caveat', cursive;
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 4px;
+    position: relative;
+    display: inline-block;
+}
+
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 5%;
+    width: 90%; height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: rotate(-0.8deg);
+    opacity: 0.7;
+}
+
+.highlight-text {
+    color: var(--accent);
+    position: relative;
+}
+.highlight-text::before {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: -4px; right: -4px;
+    height: 40%;
+    background: var(--highlight-bg);
+    z-index: -1;
+    transform: rotate(-1deg) skewX(-5deg);
+    border-radius: 3px;
+}
+
+.subtitle {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ===== CHAPTER TITLE ===== */
+.chapter-section {
+    padding: 30px 30px 10px;
+    max-width: 900px;
+    margin: 0 auto;
+    scroll-margin-top: 20px;
+}
+
+.chapter-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--accent-soft);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.chapter-title .ch-icon {
+    font-size: 1.6rem;
+    opacity: 0.8;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+    font-family: 'Caveat', cursive;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--blue-ink);
+    margin: 14px 0 6px;
+    padding-left: 8px;
+    border-left: 4px solid var(--blue-ink);
+    scroll-margin-top: 20px;
+}
+
+/* ===== CONTAINER (for cards inside chapters) ===== */
+.chapter-cards {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== NOTEBOOK CARD ===== */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px 24px 24px 48px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ruled lines */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(
+        to bottom, transparent, transparent 28px,
+        var(--ruled-line) 28px, var(--ruled-line) 29px
+    );
+    background-position: 0 24px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Margin line */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 40px;
+    width: 2px;
+    background: var(--margin-line);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.card > * { position: relative; z-index: 1; }
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card .tape {
+    position: absolute;
+    top: -6px; left: 18px;
+    width: 55px; height: 22px;
+    background: var(--tape-color);
+    border: 1px solid var(--tape-border);
+    transform: rotate(-5deg);
+    z-index: 2;
+    opacity: 0.85;
+    border-radius: 1px;
+}
+
+.card .page-curl {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 24px; height: 24px;
+    background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.03) 50%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ===== CARD HEADER ===== */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+    border-bottom: 2px solid var(--accent-soft);
+    padding-bottom: 8px;
+}
+
+.card-header .icon-circle {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 2px solid currentColor;
+    transform: rotate(-3deg);
+}
+
+.icon-circle.red { color: var(--accent); background: var(--accent-soft); }
+.icon-circle.blue { color: var(--blue-ink); background: var(--blue-soft); }
+.icon-circle.green { color: var(--green-ink); background: var(--green-soft); }
+.icon-circle.orange { color: var(--orange-ink); background: var(--orange-soft); }
+.icon-circle.purple { color: var(--purple-ink); background: var(--purple-soft); }
+
+.card-header h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.badge {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.7rem;
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+    display: inline-block;
+}
+
+/* ===== LISTS ===== */
+.feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    font-size: 0.98rem;
+}
+
+.feature-list li:hover {
+    background: var(--highlight-bg);
+    transform: translateX(3px);
+}
+
+.feature-list li .bullet {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: 'Caveat', cursive;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.arrow {
+    color: var(--blue-ink);
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.98rem;
+}
+
+.check-list li .check-mark {
+    width: 20px; height: 20px;
+    border: 2px solid var(--green-ink);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-ink);
+    font-family: 'Caveat', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    transform: rotate(-3deg);
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+/* ===== GRID ===== */
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
+}
+
+.grid-item {
+    background: var(--paper);
+    border: 1.5px dashed var(--card-border);
+    padding: 8px 5px;
+    text-align: center;
+    border-radius: 3px;
+    font-family: 'Kalam', cursive;
+    font-size: 0.88rem;
+    transition: all 0.2s ease;
+}
+
+.grid-item:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* ===== INFO BOXES ===== */
+.highlight-box {
+    background: var(--highlight-bg);
+    border-radius: 3px;
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.98rem;
+    border-left: 4px solid var(--orange-ink);
+}
+
+.highlight-box.variant {
+    border-left-color: var(--blue-ink);
+    background: var(--blue-soft);
+}
+
+.example-box {
+    background: var(--green-soft);
+    border-left: 4px solid var(--green-ink);
+    border-radius: 3px;
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.98rem;
+}
+
+.label {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.75rem;
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transform: rotate(-1deg);
+    display: inline-block;
+}
+.label.blue { background: var(--blue-ink); }
+.label.green { background: var(--green-ink); }
+.label.orange { background: var(--orange-ink); }
+.label.purple { background: var(--purple-ink); }
+
+.note-box {
+    background: var(--blue-soft);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 3px;
+    font-size: 0.92rem;
+    border-left: 4px solid var(--blue-ink);
+    position: relative;
+}
+
+.warning-box {
+    background: var(--orange-soft);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    border-left: 4px solid var(--orange-ink);
+    font-size: 0.92rem;
+}
+
+.warning-box .warn-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+.trap-box {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 12px 14px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 4px solid var(--accent);
+    font-weight: 700;
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+}
+
+/* ===== FLOW / FORMULA ===== */
+.flow-box {
+    background: var(--paper);
+    border: 1.5px dashed var(--card-border);
+    padding: 12px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.priority-flow {
+    background: var(--paper);
+    border: 2px solid var(--accent-soft);
+    padding: 14px;
+    border-radius: 3px;
+    line-height: 2;
+    overflow-x: auto;
+    font-size: 1rem;
+}
+
+.formula-box {
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 16px;
+    background: var(--paper);
+    border: 2px solid var(--blue-soft);
+    border-radius: 3px;
+    margin: 4px 0;
+}
+
+/* ===== COMPARISON GRID ===== */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.comp-box {
+    background: var(--paper);
+    border: 1.5px dashed var(--card-border);
+    padding: 12px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.comp-box:hover { border-color: var(--accent); }
+
+/* ===== STATS GRID ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+}
+
+.stat-item {
+    background: var(--paper);
+    border: 1.5px dashed var(--card-border);
+    padding: 12px 8px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.stat-item .value {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* ===== REACTION CHAIN ===== */
+.reaction-chain {
+    background: var(--paper);
+    border: 1.5px solid var(--card-border);
+    padding: 14px;
+    border-radius: 3px;
+    overflow-x: auto;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 2;
+}
+
+/* ===== TABLE ===== */
+.notebook-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin: 6px 0;
+}
+
+.notebook-table th {
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-family: 'Caveat', cursive;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+}
+
+.notebook-table td {
+    padding: 7px 10px;
+    border-bottom: 1px dashed var(--card-border);
+    vertical-align: top;
+}
+
+.notebook-table tr:hover td {
+    background: var(--highlight-bg);
+}
+
+/* ===== CIRCLE EMPHASIS ===== */
+.circle-emphasis {
+    border: 2.5px solid var(--accent);
+    border-radius: 50%;
+    padding: 2px 10px;
+    display: inline-block;
+    transform: rotate(-2deg);
+}
+
+/* SCRIBBLE DIVIDER */
+.scribble-divider {
+    text-align: center;
+    margin: 8px 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+    letter-spacing: 6px;
+    opacity: 0.4;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 40px 20px 30px;
+    color: var(--text-muted);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+}
+
+.footer .pen-icon {
+    font-size: 1.3rem;
+    display: inline-block;
+    animation: pen-write 2s ease-in-out infinite;
+}
+
+@keyframes pen-write {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg) translateX(3px); }
+}
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--card-border);
+    color: var(--accent);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 90;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    .sidebar-toggle {
+        display: flex;
+    }
+    .main-content {
+        margin-left: 0;
+    }
+    .scroll-progress {
+        left: 0;
+    }
+    .title { font-size: 2.6rem; }
+    .hero { padding: 55px 16px 15px; }
+    .chapter-section { padding: 20px 16px 8px; }
+    .chapter-cards { padding: 0 12px 20px; }
+    .card { padding: 20px 20px 20px 42px; }
+    .card::after { left: 34px; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 2rem; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .grid-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Sidebar overlay on mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 45;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
